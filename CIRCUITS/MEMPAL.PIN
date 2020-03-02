@@ -1,0 +1,19 @@
+                               ______________
+                              |    Memory    |
+                  NotPSEN x---|1           24|---x Vcc                      
+                     PSEN x---|2           23|---x PSENInv                  
+                      DTR x---|3           22|---x !EvenWR                  
+                      DEN x---|4           21|---x !OddWR                   
+                      BHE x---|5           20|---x EVEN                     
+                       A0 x---|6           19|---x ODD                      
+                       WE x---|7           18|---x                          
+                      MIO x---|8           17|---x                          
+                      A19 x---|9           16|---x !ReadMem                 
+                     ROME x---|10          15|---x !PE                      
+                          x---|11          14|---x                          
+                      GND x---|12          13|---x                          
+                              |______________|
+
+
+
+

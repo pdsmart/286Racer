@@ -1,0 +1,54 @@
+Name       LINK PAL & COMMAND CONTROL;
+Partno     LINK 1;
+Date       24/02/88;
+Revision   01;
+Designer   P.D. Smart;
+Company    Feduptronics;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* A PAL to implement basic link handshaking and interupt gen-    */
+/* eration. Also implements PC-286 reset, and PC-8207 reset.      */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types: 20RA10                         */
+/******************************************************************/
+
+
+ORDER:     PCRDLNK, %1, PCWRLNK, %1, READLNK, %1, WRITELNK, %1, PCD0, %1,
+           PCD1, %1, PCD2, %1, PCCOM, %1, D0, %1, D1, %1, COM, %2,
+
+           PCDATAR, %1, DATAR, %1, INTR2, %1, NMI, %1, MEMRESET, %1,
+           286RESET, %1, PCCout, %1, Cout, %1, TEST;
+
+VECTORS:
+$msg "          **INPUTS**           *OUTPUT*       ";
+$msg "                                              ";
+$msg "            W                        M 2      ";
+$msg "      P P R R                P       E 8      ";
+$msg "      C C A I                C       M 6 P    ";
+$msg "      R W E T       P        D D I   R R C    ";
+$msg "      D R D E P P P C        A A N   E E C C T";
+$msg "      L L L L C C C C     C  T T T N S S o o E";
+$msg "      N N N N D D D O D D O  A A R M E E u u S";
+$msg "      K K K K 0 1 2 M 0 1 M  R R 2 I T T t t T";
+$msg "      ----------------------------------------";
+            1 0 1 0 0 0 0 1 0 0 1  X X X X X X X X X  /* Test PC command reg */
+            1 0 1 0 0 0 1 C 0 0 1  X X X X L L H X X
+            1 0 1 0 0 1 0 C 0 0 1  X X X L L H L X X
+            1 0 1 0 0 1 1 C 0 0 1  X X X X L H H X X
+            1 0 1 0 1 0 0 C 0 0 1  X X X L H L L X X
+            1 0 1 0 1 0 1 C 0 0 1  X X X X H L H X X
+            1 0 1 0 1 1 0 C 0 0 1  X X X L H H L X X
+            1 0 1 0 1 1 1 C 0 0 1  X X X X H H H X X
+   	    1 0 1 0 0 0 0 1 0 0 C  X X L L L L L L L  /* Test 286 command reg*/
+ 	    1 0 1 0 0 0 0 1 0 1 C  X X L L L L L L H
+            1 0 1 0 0 0 0 1 1 0 C  X X X L L L L H L
+            1 0 1 0 0 0 0 1 1 1 C  X X X L L L L H H
+	    1 0 1 1 0 0 0 1 0 0 1  X L L L L L L L L  /* Test S R flip flops */
+            1 0 0 0 0 0 0 1 0 0 1  H L L L L L L L L
+            1 1 1 0 0 0 0 1 0 0 1  L L L L L L L L L
+            0 0 1 0 0 0 0 1 0 0 1  H L L L L L L L L 
+	    1 1 1 0 0 0 1 C 0 0 1  L H L L L L H L L
+

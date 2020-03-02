@@ -1,0 +1,55 @@
+Name       Memory system control PAL;
+Partno     MEM 1;
+Date       23/02/88;
+Revision   01;
+Designer   P.D. Smart;
+Company    Feduptronics;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* A PAL to glue the memory system to the 286 CPU.                */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types: 20RS4                          */
+/******************************************************************/
+
+ORDER:     PSEN, %2, DTR, %1, DEN, %2, BHE, %1, A0, %1, NotPSEN, %1, WE, %2,
+           MIO, %1, A19, %1, ROME, %1, EAACK, %3,
+
+	   PSENInv, %1, ReadMem, %1, EvenWR, %1, OddWR, %1, PE, %1, CRDY;
+
+VECTORS:
+$msg "        **INPUTS**             *OUTPUT*     ";
+$msg "                                            ";
+$msg "                N               P R         ";
+$msg "                o               S e E       ";
+$msg "                t          E    E a v O     ";
+$msg "    P           P        R A    N d e d   C ";
+$msg "    E  D D  B   S    M A O A    I M n d   R "; 
+$msg "    S  T E  H A E W  I 1 M C    n e W W P D ";
+$msg "    N  R N  E 0 N E  O 9 E K    v m R R E Y ";
+$msg "    ----------------------------------------";
+0  X X  X X X X  X X X X  H X X X X X /* Test invertor                      */
+1  X X  X X X X  X X X X  L X X X X X
+X  1 1  X X X X  X X X X  X H X X X X /* Testing memory read latch enabling */
+X  1 0  X X X X  X X X X  X H X X X X
+X  0 1  X X X X  X X X X  X L X X X X
+X  0 0  X X X X  X X X X  X H X X X X
+X  X X  X X X X  0 0 0 0  X X X X H L /* Testing 8207 enabling. Should only */
+X  X X  X X X X  0 0 1 0  X X X X H L /* be enabled if a Memory access, and */
+X  X X  X X X X  0 1 0 0  X X X X H L /* the ROM is disabled, or if ROM     */
+X  X X  X X X X  0 1 1 1  X X X X H L /* enabled, should only be enabled if */
+X  X X  X X X X  1 0 0 1  X X X X L H /* A19 = 0                            */
+X  X X  X X X X  1 0 1 1  X X X X L H
+X  X X  X X X X  1 1 0 1  X X X X L H
+X  X X  X X X X  1 1 1 0  X X X X H L           
+X  X X  1 1 C 0  X X X X  X X H H X X /* Test WRITE output strobes.         */
+X  X X  1 0 C 0  X X X X  X X H H X X
+X  X X  0 1 C 0  X X X X  X X H H X X
+X  X X  0 0 C 0  X X X X  X X H H X X
+X  X X  1 1 C 1  X X X X  X X H H X X
+X  X X  1 0 C 1  X X X X  X X L H X X
+X  X X  0 1 C 1  X X X X  X X H L X X
+X  X X  0 0 C 1  X X X X  X X L L X X
+

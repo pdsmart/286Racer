@@ -1,0 +1,46 @@
+Name       PC I/O decoder PAL;
+Partno     PC 1;
+Date       25/02/88;
+Revision   01;
+Designer   P.D. Smart;
+Company    Feduptronics;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* A PAL to decode the IBM PC I/O space to generate 4 select      */
+/* signals for I/O devices in the range 0210-0211 hex. Also       */
+/* generates a 74LS245 select signal.                             */
+/******************************************************************/
+/*  Allowable Target Device Types: 16L8                           */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin [1..2]   = [A0..1]   ;      /* PC bus address signals         */
+Pin [3..9]   = [A3..9]   ;      /*                                */
+Pin 11       = CPUAEN    ;      /* CPUAEN signal from PC bus      */
+Pin 13       = IOWR      ;      /* I/O write strobe               */
+Pin 14       = IORD      ;      /* I/O read strobe                */
+
+/**  Outputs  **/
+
+Pin 15       = ADDR      ;      /* Intermediate address output    */
+Pin 16       = WRPCL     ;      /* Write LINK signal              */
+Pin 17       = RDPCL     ;      /* Read LINK signal               */
+Pin 18       = WRCOM     ;      /* Write command                  */
+Pin 19       = RDSTAT    ;      /* Read status                    */
+Pin 12       = SEL245    ;      /* Select 245                     */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+/**  Logic Equations  **/
+
+ADDR         = A3 # !A4 # A5 # A6 # A7 # A8 # !A9;
+WRPCL        = !(CPUAEN # IOWR # !IORD # ADDR # A0 # A1);
+RDPCL        = CPUAEN # !IOWR # IORD # ADDR # A0 # A1;
+WRCOM        = !(CPUAEN # IOWR # !IORD # ADDR # !A0 # A1);
+RDSTAT       = CPUAEN # !IOWR # IORD # ADDR # !A0 # A1;
+SEL245       = CPUAEN # (IOWR & IORD) # ADDR;
+
+

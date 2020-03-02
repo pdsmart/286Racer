@@ -1,0 +1,88 @@
+Name       CPU decoder PAL;
+Partno     CPUDEC 1;
+Date       24/02/88;
+Revision   01;
+Designer   P.D. Smart;
+Company    Feduptronics;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* A PAL to decode the 286 I/O ports to generate the 5 select     */
+/* signals required.                                              */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types: 16L8                           */
+/******************************************************************/
+
+ORDER: IOWR, %1, IORD, %1, A1, %1, A2, %1, A10, %1, A11, %1, A19, %1,
+       RESET, %1, MEMRES, %2,
+
+       LINKWR, %1, LINKRD, %1, COMWR, %1, STATRD, %2, FF1, %1, FF2, %1,
+       ROMSEL, %2, LOADSHIFT;
+
+VECTORS:
+$msg "                                         L ";
+$msg "                                         O ";
+$msg "                                         A ";
+$msg "                      M  L L   S      R  D ";
+$msg "                    R E  I I C T      O  S ";
+$msg "      I I           E M  N N O A      M  H ";
+$msg "      O O     A A A S R  K K M T  F F S  I ";
+$msg "      W R A A 1 1 1 E E  W R W R  F F E  F ";
+$msg "      R D 1 2 0 1 9 T S  R D R D  1 2 L  T ";
+$msg "      -------------------------------------";
+1 1 0 0 0 0 1 0 0  L H L H  H L L  H          /* Check basic inactive states */
+1 1 0 0 0 1 1 0 0  L H L H  H L L  H
+1 1 0 0 1 0 1 0 0  L H L H  H L L  H
+1 1 0 0 1 1 1 0 0  L H L H  H L L  H
+1 1 0 1 0 0 1 0 0  L H L H  H L L  H 
+1 1 0 1 0 1 1 0 0  L H L H  H L L  H
+1 1 0 1 1 0 1 0 0  L H L H  H L L  H
+1 1 0 1 1 1 1 0 0  L H L H  H L L  H
+1 1 1 0 0 0 1 0 0  L H L H  H L L  H
+1 1 1 0 0 1 1 0 0  L H L H  H L L  H
+1 1 1 0 1 0 1 0 0  L H L H  H L L  H
+1 1 1 0 1 1 1 0 0  L H L H  H L L  H
+1 1 1 1 0 0 1 0 0  L H L H  H L L  H 
+1 1 1 1 0 1 1 0 0  L H L H  H L L  H 
+1 1 1 1 1 0 1 0 0  L H L H  H L L  H
+1 1 1 1 1 1 1 0 0  L H L H  H L L  H
+0 1 0 0 0 0 1 0 0  L H L H  H L L  H	/* Check basic I/O write states */
+0 1 0 0 0 1 1 0 0  L H L H  H L L  H
+0 1 0 0 1 0 1 0 0  L H L H  H L L  H
+0 1 0 0 1 1 1 0 0  H H L H  H L L  H
+0 1 0 1 0 0 1 0 0  L H L H  H L L  H 
+0 1 0 1 0 1 1 0 0  L H L H  H L L  H
+0 1 0 1 1 0 1 0 0  L H L H  H L L  H
+0 1 0 1 1 1 1 0 0  L H L H  H H L  H
+0 1 1 0 0 0 1 0 0  L H L H  H L L  H
+0 1 1 0 0 1 1 0 0  L H L H  H L L  H
+0 1 1 0 1 0 1 0 0  L H L H  H L L  H
+0 1 1 0 1 1 1 0 0  L H H H  H L L  H
+0 1 1 1 0 0 1 0 0  L H L H  H L L  H 
+0 1 1 1 0 1 1 0 0  L H L H  H L L  H
+0 1 1 1 1 0 1 0 0  L H L H  H L L  H
+0 1 1 1 1 1 1 0 0  L H L H  H L L  H
+1 0 0 0 0 0 1 0 0  L H L H  H L L  H	/* Check basic i/o read states */
+1 0 0 0 0 1 1 0 0  L H L H  H L L  H
+1 0 0 0 1 0 1 0 0  L H L H  H L L  H
+1 0 0 0 1 1 1 0 0  L L L H  H L L  H
+1 0 0 1 0 0 1 0 0  L H L H  H L L  H 
+1 0 0 1 0 1 1 0 0  L H L H  H L L  H
+1 0 0 1 1 0 1 0 0  L H L H  H L L  H
+1 0 0 1 1 1 1 0 0  L H L H  H L L  H
+1 0 1 0 0 0 1 0 0  L H L H  H L L  H
+1 0 1 0 0 1 1 0 0  L H L H  H L L  H
+1 0 1 0 1 0 1 0 0  L H L H  H L L  H
+1 0 1 0 1 1 1 0 0  L H L L  H L L  H
+1 0 1 1 0 0 1 0 0  L H L H  H L L  H
+1 0 1 1 0 1 1 0 0  L H L H  H L L  H
+1 0 1 1 1 0 1 0 0  L H L H  H L L  H
+1 0 1 1 1 1 1 0 0  L H L H  H L L  H
+1 1 0 0 0 0 0 1 0  L H L H  H L H  H
+1 1 0 0 0 0 0 0 0  L H L H  H L H  H
+1 1 0 0 0 0 1 0 0  L H L H  H L L  H
+1 1 0 0 0 0 1 1 0  L H L H  H L L  H
+1 1 0 0 0 0 1 1 1  L H L H  H L L  L
+

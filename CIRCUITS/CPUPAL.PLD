@@ -1,0 +1,55 @@
+Name       CPU decoder PAL;
+Partno     CPUDEC 1;
+Date       24/02/88;
+Revision   01;
+Designer   P.D. Smart;
+Company    Feduptronics;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* A PAL to decode the 286 I/O ports to generate the 5 select     */
+/* signals required.                                              */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types: 16L8                           */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin 1        = IOWR      ;      /* IOWR signal from 286           */
+Pin 2        = IORD      ;      /* IORD signal from 286           */
+Pin 3        = A1        ;      /* Address signals from 286       */
+Pin 4        = A2        ;      /*                                */
+Pin 5        = A10       ;      /*                                */
+Pin 6        = A11       ;      /*                                */
+Pin 7        = A19       ;      /*                                */
+Pin 8        = RESET     ;      /* Reset signal from CPU          */
+Pin 9        = MEMRES    ;      /* Memory reset pin               */
+
+/**  Outputs  **/
+
+Pin 19       = LINKWR    ;      /* Signal to initiate a link write*/
+Pin 18       = LINKRD    ;      /* Signal to initiate a link read */
+Pin 17       = COMWR     ;      /* Write to command port          */
+Pin 16       = STATRD    ;      /* Read from status port          */
+Pin 15       = FF1       ;      /* Flip flop output 1             */
+Pin 14       = FF2       ;      /* Flip flop output 2             */
+Pin 13       = ROMSEL    ;      /* Select ROM                     */
+Pin 12       = LOADSHIFT ;      /* Load shift register signal     */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+/**  Logic Equations  **/
+
+LINKWR   = !(IOWR # !IORD #  A1 #  A2 # !A10 # !A11);
+LINKRD   = !IOWR #  IORD #  A1 #  A2 # !A10 # !A11;
+COMWR    = !(IOWR # !IORD # !A1 #  A2 # !A10 # !A11);
+STATRD   = !IOWR #  IORD # !A1 #  A2 # !A10 # !A11;
+FF1      = !(FF2 & RESET);
+FF2      = !(FF1 & (IOWR # !IORD #  A1 # !A2 # !A10 # !A11));
+ROMSEL   = !(FF1 & A19);
+LOADSHIFT= !MEMRES;
+
+ 
+

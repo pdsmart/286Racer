@@ -1,0 +1,71 @@
+Name       286 GLUE LOGIC;
+Partno     286PAL;
+Date       14/02/88;
+Revision   01;
+Designer   P.D. SMART;
+Company    SMART EXPERIENCE;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* Glue logic for controlling the 286 CPU on board the TurboRacer */
+/* 286 Multi-purpose Multiprocessor PC expansion card.            */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types:                                */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin  1       = A0        ;      /* Addr A0 used for DRAM Write    */
+Pin  2       = A19       ;      /* Addr A19 used for ROM select   */
+Pin  3       = BHE       ;      /* BHE signal used for DRAM write */
+Pin  4       = WE        ;      /* WE signal used for DRAM write  */
+Pin  5       = PSEN      ;      /* PSEN used for DRAM write clock */
+Pin  6       = DTR       ;      /* DT/-R signal from 82288        */
+Pin  7       = DEN       ;      /* DEN signal from 82288          */
+Pin  8       = MIO       ;      /* M/-IO signal from 82288        */
+Pin  9       = !RESET    ;      /* Reset input from 286           */
+Pin  11      = !ROMOUT   ;     	/* Page ROMS out signal           */
+
+/**  Outputs  **/
+
+Pin  12      = !ROMSEL   ;      /* Enable rom signal              */
+Pin  13      = !READRAM  ;      /* Enable RAM read latch outputs  */
+Pin  14      = !PE       ;      /* Enable 8207 port A             */
+Pin  15      = !EVENWR   ;      /* Write enable to even bytes     */
+Pin  16      = !ODDWR    ;      /* Write enable to odd bytes      */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+Z14 = RESET & !Z15;
+Z15 = ROMOUT & !Z14;
+Z16 = A19 & !Z14;
+Z17 = !DTR & DEN;
+Z18 = A19 & !Z14;
+Z19 = !Z22 & !Z20;
+Z20 = !Z19 & !PSEN;
+Z21 = !Z20 & !PSEN & !Z22;
+Z22 = A0 & !Z21;
+Z23 = !Z20 & !Z24;
+Z24 = !Z21 & !Z23;
+Z25 = WE & !Z24;
+Z26 = !Z29 & !Z27;
+Z27 = !Z26 & !PSEN;
+Z28 = !Z27 & !PSEN & !Z29;
+Z29 = BHE & !Z28;
+Z30 = !Z27 & !Z31;
+Z31 = !Z30 & !Z28;
+Z32 = !Z31 & WE;
+
+
+/**  Logic Equations  **/
+
+ROMSEL = !Z16;
+READRAM = !Z17;
+PE = !MIO # Z18;
+EVENWR = !Z25;
+ODDWR = !Z32;
+
+
+

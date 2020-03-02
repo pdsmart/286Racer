@@ -1,0 +1,77 @@
+                                              Revised:   January 24, 1988
+TurboRacer 286                                Revision: A
+Bill Of Materials            January 24, 1988     18:45:44          Page    1
+
+ Item  Quantity  Reference                 Part      
+_____________________________________________________
+
+    1       9    R4,R5,R6,R7,R8,R9,R10,    33R       
+                 R11,R12
+
+    2       1    U14                       8207      
+
+    3       1    U10                       74F00     
+
+    4       1    U11                       74F04     
+
+    5       2    U15,U9                    74F74     
+
+    6      32    UM1,UM2,UM3,UM4,UM5,UM6,  41256     
+                 UM7,UM8,UM9,UM10,UM11,
+                 UM12,UM13,UM14,UM15,UM16,
+                 UM17,UM18,UM19,UM20,UM21,
+                 UM22,UM23,UM24,UM25,UM26,
+                 UM27,UM28,UM29,UM30,UM31,
+                 UM32
+
+    7       4    RP1,RP2,R13,R14           1K        
+
+    8       2    SW1,SW2                   DIPSW-8   
+
+    9       2    U28,U29                   74LS165   
+
+   10       8    U16,U4,U5,U6,U7,U8,U17,   74F244    
+                 U18
+
+   11       2    U19,U20                   74F245    
+
+   12       1    U27                       74F32     
+
+   13       1    U21                       74F85     
+
+   14       1    U22                       74ALS133  
+
+   15       1    SW3                       DIPSW-4   
+
+   16       2    U25,U13                   74F138    
+
+   17       1    U23                       74HCT75   
+
+   18       1    U26                       74F273    
+
+   19       1    U24                       74HCT243  
+
+   20       1    R1                        910R      
+
+   21       1    X1                        12MHz     
+
+   22       2    C1,C2                     10pF      
+
+   23       1    U1                        80286     
+                                              Revised:   January 24, 1988
+TurboRacer 286                                Revision: A
+Bill Of Materials            January 24, 1988     18:45:44          Page    2
+
+ Item  Quantity  Reference                 Part      
+_____________________________________________________
+
+   24       1    U2                        82284     
+
+   25       1    R2                        300R      
+
+   26       1    U12                       74F08     
+
+   27       1    C3                        .047uF    
+
+   28       1    U3                        82288     
+

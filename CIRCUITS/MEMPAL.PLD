@@ -1,0 +1,63 @@
+Name       Memory system control PAL;
+Partno     MEM 1;
+Date       23/02/88;
+Revision   01;
+Designer   P.D. Smart;
+Company    Feduptronics;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* A PAL to glue the memory system to the 286 CPU.                */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types: 20RS4                          */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin 1        = NotPSEN   ;      /* Inverted PSEN for clocking     */
+Pin 2        = PSEN      ;      /* PSEN before inversion          */
+Pin 3        = DTR       ;      /* DT/NOT R signal                */
+Pin 4        = DEN       ;      /* Data enable signal             */
+Pin 5        = BHE       ;      /* Bus High ENABLE                */
+Pin 6        = A0        ;      /* Address bus A0 signal          */
+Pin 7        = WE        ;      /* Memory write enable            */
+Pin 8        = MIO       ;      /* Memory / Not IO signal         */
+Pin 9        = A19       ;      /* Address bus A19 signal         */
+Pin 10       = ROME      ;      /* Rom enabled signal             */
+Pin 11       = EAACK     ;      /* Early DRAM acknowledge signal  */
+
+						      
+/**  Outputs  **/				      
+
+Pin 23       = PSENInv   ;      /* Inverted PSEN output           */
+Pin 22       = EvenWR    ;      /* Evenbyte write signal          */
+Pin 21       = OddWR     ;      /* Oddbyte write signal           */
+Pin 20       = EVEN      ;      /* Intermediate even write output */
+Pin 19       = ODD       ;      /* Intermediate odd write output  */
+Pin 16       = ReadMem   ;      /* Enable 374 gates for read      */
+Pin 15       = PE        ;      /* Enable 8207 PORT A             */
+Pin 14       = CRDY      ;      /* Composite READY enable signal  */
+
+
+/** Declarations and Intermediate Variable Definitions **/
+
+EVEN.D = A0;
+ODD.D  = BHE;
+
+X1     = !DTR & DEN;
+X2     = A19 & ROME;
+
+/**  Logic Equations  **/
+
+PSENInv = !PSEN;
+ReadMem = !X1;
+PE      = !MIO # X2;
+EvenWR  = !(WE & !EVEN);
+OddWR   = !(WE & !ODD);	    
+CRDY    = !X2 & EAACK;
+
+
+
+

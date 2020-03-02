@@ -1,0 +1,85 @@
+Name       LINK PAL & COMMAND CONTROL;
+Partno     LINK 1;
+Date       24/02/88;
+Revision   01;
+Designer   P.D. Smart;
+Company    Feduptronics;
+Assembly   XXXXX;
+Location   XXXXX;
+
+/******************************************************************/
+/* A PAL to implement basic link handshaking and interupt gen-    */
+/* eration. Also implements PC-286 reset, and PC-8207 reset.      */
+/*                                                                */
+/******************************************************************/
+/*  Allowable Target Device Types: 20RA10                         */
+/******************************************************************/
+
+/**  Inputs  **/
+
+Pin 2        = PCRDLNK   ;      /* PC requests a read of LINK     */
+Pin 3        = PCWRLNK   ;      /* PC requests to write to LINK   */
+Pin 4        = READLNK   ;      /* 286 requests a read of LINK    */
+Pin 5        = WRITELNK  ;      /* 286 requests to write to LINK  */
+Pin 6        = PCD0      ;      /* PC data bus D0                 */
+Pin 7        = PCD1      ;      /* PC data bus D1                 */
+Pin 8        = PCD2      ;      /* PC data bus D2                 */
+Pin 9        = PCCOM     ;      /* PC write command signal        */
+Pin 10       = D0        ;      /* 286 data bus D0                */
+Pin 11       = D1        ;      /* 286 data bus D1                */
+Pin 14       = COM       ;      /* 286 write command signal       */
+
+/**  Outputs  **/
+
+Pin 23       = PCDATAR   ;      /* Data available output to PC    */
+Pin 22       = DATAR     ;      /* Data available output to 286   */
+Pin 21       = INTR2     ;      /* Interupt level 2 to PC         */
+Pin 20       = NMI       ;      /* NMI to 286                     */
+Pin 19       = MEMRESET  ;      /* Reset 8207                     */
+Pin 18       = 286RESET  ;      /* Reset 286                      */
+Pin 17       = PCCout    ;      /* Intermediate output            */
+Pin 16       = Cout      ;      /* Intermediate output            */
+Pin 15       = TEST      ;      /* A test/general purpose output  */
+
+/** Declarations and Intermediate Variable Definitions **/
+
+PCDATAR.AP   = PCWRLNK;
+PCDATAR.AR   = !READLNK;
+PCDATAR.D    = 'b'0;
+PCDATAR.CK   = 'b'0;
+DATAR.AP     = WRITELNK;
+DATAR.AR     = !PCRDLNK;
+DATAR.D      = 'b'0;
+DATAR.CK     = 'b'0;
+MEMRESET.AP  = 'b'0;
+MEMRESET.AR  = 'b'0;
+MEMRESET.D   = PCD0;
+MEMRESET.CK  = PCCOM;
+286RESET.AP  = 'b'0;
+286RESET.AR  = 'b'0;
+286RESET.D   = PCD1;
+286RESET.CK  = PCCOM;
+PCCout.AP    = 'b'0;
+PCCout.AR    = 'b'0;
+PCCout.D     = PCD2;
+PCCout.CK    = PCCOM;
+Cout.AP      = 'b'0;
+Cout.AR      = 'b'0;
+Cout.D       = D0;
+Cout.CK      = COM;
+TEST.AP      = 'b'0;
+TEST.AR      = 'b'0;
+TEST.D       = D1;
+TEST.CK      = COM;
+
+
+/**  Logic Equations  **/
+
+INTR2        = DATAR & Cout;
+NMI          = PCDATAR & PCCout;
+
+
+
+
+
+
