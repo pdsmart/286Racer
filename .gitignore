@@ -1,0 +1,7 @@
+.metadata
+.dm
+.gradle
+/Releases
+/.nb-gradle/
+*.obj
+*.sym
